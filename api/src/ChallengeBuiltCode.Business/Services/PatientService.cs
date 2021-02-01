@@ -19,6 +19,12 @@ namespace ChallengeBuiltCode.Business.Services
 
         public async Task<bool> Insert(Patient patient)
         {
+            if (_patientRepository.Search(f => f.Cpf != patient.Cpf).Result.Any())
+            {
+                Inform("Patient duplicated.");
+                return false;
+            }
+
             await _patientRepository.Insert(patient);
             return true;
         }

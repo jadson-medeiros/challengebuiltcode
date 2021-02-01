@@ -1,0 +1,40 @@
+<div class="container main-container">
+  <h1>List of Doctors</h1>
+
+  <p>
+    <a class="btn btn-info" [routerLink]="['/doctors/add-new']">New Doctor</a>
+  </p>
+
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>CRM</th>
+        <th>CRMUF</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tr *ngFor="let doctor of doctors">
+      <td>
+        {{ doctor.name }}
+      </td>
+      <td>
+        {{ doctor.crm }}
+      </td>
+      <td>
+        {{ doctor.crmUf }}
+      </td>
+      <td class="text-right">
+        <a class="btn btn-info" [routerLink]="['/doctors/details', doctor.id]">
+          <span class="fa fa-search"></span> </a
+        >&nbsp;
+        <a class="btn btn-warning" [routerLink]="['/doctors/edit', doctor.id]">
+          <span class="fa fa-pencil-alt"></span> </a
+        >&nbsp;
+        <a class="btn btn-danger" [routerLink]="['/doctors/delete', doctor.id]">
+          <span class="fa fa-trash"></span>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>

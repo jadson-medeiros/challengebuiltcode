@@ -1,0 +1,33 @@
+<div class="container main-container">
+  <h3>Are you sure you want to delete the doctor {{ doctor.name }} ?</h3>
+  <hr />
+
+  <div class="alert alert-danger" *ngIf="errors.length > 0">
+    <h3 id="msgRetorno">Oops! Something didn't work:</h3>
+    <ul>
+      <li *ngFor="let error of errors">{{ error }}</li>
+    </ul>
+  </div>
+
+  <dl class="row">
+    <dt class="col-sm-2">
+      <label class="control-label">Name</label>
+    </dt>
+    <dd class="col-sm-10">
+      {{ doctor.name }}
+    </dd>
+    <dt class="col-sm-2">
+      <label class="control-label">CRM</label>
+    </dt>
+    <dd class="col-sm-10">
+      {{ doctor.crm }}
+    </dd>
+  </dl>
+
+  <div>
+    <a class="btn btn-danger" href="javascript:void(0)" (click)="deleteDoctor()"
+      >Delete</a
+    >&nbsp;
+    <a class="btn btn-info" [routerLink]="['/doctors/list-all']">Back</a>
+  </div>
+</div>

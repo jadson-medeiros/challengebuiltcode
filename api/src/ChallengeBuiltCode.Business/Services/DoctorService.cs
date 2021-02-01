@@ -10,15 +10,24 @@ namespace ChallengeBuiltCode.Business.Services
     public class DoctorService : BaseService, IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IPatientRepository _patientRepository;
 
         public DoctorService(IDoctorRepository doctorRepository,
+            IPatientRepository patientRepository,
             INotify notify) : base(notify)
         {
             _doctorRepository = doctorRepository;
+            _patientRepository = patientRepository;
         }
 
         public async Task<bool> Insert(Doctor doctor)
         {
+            if (_doctorRepository.Search(f => f.Crm == doctor.Crm).Result.Any())
+            {
+                Inform("Doctor duplicated.");
+                return false;
+            }
+
             await _doctorRepository.Insert(doctor);
             return true;
         }
@@ -39,6 +48,12 @@ namespace ChallengeBuiltCode.Business.Services
 
         public async Task<bool> Delete(Guid id)
         {
+            if (_patientRepository.Search(f => f.DoctorId == id).Result.Any())
+            {
+                Inform("The doctor has a patient.");
+                return false;
+            }
+
             await _doctorRepository.Delete(id);
             return true;
         }

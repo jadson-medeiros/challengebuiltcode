@@ -35,7 +35,7 @@ namespace ChallengeBuiltCode.Api.V1.Controllers
             _appSettings = appSettings.Value;
         }
 
-        [HttpPost("newAccount")]
+        [HttpPost("new-account")]
         public async Task<ActionResult> Register(RegisterUserViewModel registerUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -51,7 +51,7 @@ namespace ChallengeBuiltCode.Api.V1.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return CustomResponse(await GerarJwt(user.Email));
+                return CustomResponse(await GenerateJwt(user.Email));
             }
             foreach (var error in result.Errors)
             {
@@ -61,7 +61,7 @@ namespace ChallengeBuiltCode.Api.V1.Controllers
             return CustomResponse(registerUser);
         }
 
-        [HttpPost("login")]
+        [HttpPost("signin")]
         public async Task<ActionResult> Login(LoginUserViewModel loginUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -71,7 +71,7 @@ namespace ChallengeBuiltCode.Api.V1.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User " + loginUser.Email + " successfully logged in");
-                return CustomResponse(await GerarJwt(loginUser.Email));
+                return CustomResponse(await GenerateJwt(loginUser.Email));
             }
             if (result.IsLockedOut)
             {
@@ -83,7 +83,7 @@ namespace ChallengeBuiltCode.Api.V1.Controllers
             return CustomResponse(loginUser);
         }
 
-        private async Task<LoginResponseViewModel> GerarJwt(string email)
+        private async Task<LoginResponseViewModel> GenerateJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             var claims = await _userManager.GetClaimsAsync(user);

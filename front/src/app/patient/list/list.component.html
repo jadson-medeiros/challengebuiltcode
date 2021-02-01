@@ -1,0 +1,46 @@
+<div class="container main-container">
+  <h1>List of Patients</h1>
+  <hr />
+
+  <p>
+    <a class="btn btn-info" [routerLink]="['/patients/add-new']">New Patient</a>
+  </p>
+
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Doctor</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients">
+        <td>
+          {{ patient.name }}
+        </td>
+        <td>
+          {{ patient.nameDoctor }}
+        </td>
+        <td class="text-right">
+          <a
+            class="btn btn-warning"
+            [routerLink]="['/patients/details', patient.id]"
+          >
+            <span class="fa fa-search"></span> </a
+          >&nbsp;
+          <a class="btn btn-info" [routerLink]="['/patients/edit', patient.id]">
+            <span class="fa fa-pencil-alt"></span> </a
+          >&nbsp;
+          <a
+            class="btn btn-danger"
+            [routerLink]="['/patients/delete', patient.id]"
+          >
+            <span class="fa fa-trash"></span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

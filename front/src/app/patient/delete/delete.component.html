@@ -1,0 +1,40 @@
+<div class="container main-container">
+  <h4>Excluir {{ patient.name }}</h4>
+  <br />
+  <h5>Are you sure about that?</h5>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dl>
+        <dt>Doctor</dt>
+        <dd>
+          {{ patient.nameDoctor }}
+        </dd>
+        <dt>Name</dt>
+        <dd>
+          {{ patient.name }}
+        </dd>
+        <dt>CPF</dt>
+        <dd>
+          {{ patient.cpf }}
+        </dd>
+        <dt>Birth Date</dt>
+        <dd>
+          {{ patient.birthDate | date: "dd/MM/yyyy" }}
+        </dd>
+      </dl>
+
+      <div>
+        <a
+          (click)="deletePatient()"
+          href="javascript:void(0)"
+          class="btn btn-danger"
+          >Delete</a
+        >&nbsp;
+        <a class="btn btn-info" href="javascript:window.history.back();"
+          >Back</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

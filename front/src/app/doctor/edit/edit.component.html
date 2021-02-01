@@ -1,0 +1,90 @@
+<div class="container main-container">
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="pacman"
+    [fullScreen]="true"
+  >
+    <p style="color: white">Processing...</p>
+  </ngx-spinner>
+
+  <h1>Edit Doctor</h1>
+  <hr />
+  <form
+    novalidate="novalidate"
+    (ngSubmit)="updateDoctor()"
+    [formGroup]="doctorForm"
+  >
+    <div class="alert alert-danger" *ngIf="errors.length > 0">
+      <h3 id="msgReturn">Oops! Something didn't work:</h3>
+      <ul>
+        <li *ngFor="let error of errors">{{ error }}</li>
+      </ul>
+    </div>
+
+    <input type="hidden" id="id" name="id" value="" />
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <div>
+          <label class="control-label">Name</label>
+          <div>
+            <input
+              class="form-control"
+              id="name"
+              type="text"
+              placeholder="Name (required)"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': displayMessage.name }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.name">
+              <p [innerHTML]="displayMessage.name"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">CRM</label>
+          <div>
+            <input
+              class="form-control"
+              id="crm"
+              type="text"
+              placeholder="CRM (required)"
+              formControlName="crm"
+              [ngClass]="{ 'is-invalid': displayMessage.crm }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.crm">
+              <p [innerHTML]="displayMessage.crm"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">CRM-UF</label>
+          <div>
+            <input
+              class="form-control"
+              id="crmUf"
+              type="text"
+              placeholder="CRM-UF (required)"
+              formControlName="crmUf"
+              [ngClass]="{ 'is-invalid': displayMessage.crmUf }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.crmUf">
+              <p [innerHTML]="displayMessage.crmUf"></p>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="submit" value="Editar" class="btn btn-primary" />&nbsp;
+      <a class="btn btn-info" [routerLink]="['/doctors/list-all']">Back</a>
+    </div>
+  </form>
+
+  <list-patient [pratients]="doctor.patients"></list-patient>
+</div>

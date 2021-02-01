@@ -1,0 +1,100 @@
+<div class="container main-container">
+  <h3>Edit Patient - {{ patient.name }}</h3>
+
+  <hr />
+  <div class="row">
+    <div class="col-md-10">
+      <form
+        enctype="multipart/form-data"
+        (ngSubmit)="updatePatient()"
+        [formGroup]="patientForm"
+      >
+        <div class="alert alert-danger" *ngIf="errors.length > 0">
+          <h3 id="msgReturn">Oops! Something didn't work:</h3>
+          <ul>
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Doctor</label>
+          <select
+            class="form-control"
+            id="doctorId"
+            formControlName="doctorId"
+            [ngClass]="{ 'is-invalid': displayMessage.doctorId }"
+          >
+            <option *ngFor="let doctor of doctors" value="{{ doctor.id }}">
+              {{ doctor.name }}
+            </option>
+          </select>
+          <span class="text-danger" *ngIf="displayMessage.doctorId">
+            <p [innerHTML]="displayMessage.doctorId"></p>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Name</label>
+          <div>
+            <input
+              class="form-control"
+              id="name"
+              type="text"
+              placeholder="Name (required)"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': displayMessage.name }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.name">
+              <p [innerHTML]="displayMessage.name"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">CPF</label>
+          <div>
+            <input
+              class="form-control"
+              id="cpf"
+              type="text"
+              placeholder="{{ textCpf }}"
+              formControlName="cpf"
+              [textMask]="{ mask: MASKS.cpf.textMask }"
+              [ngClass]="{ 'is-invalid': displayMessage.cpf }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.cpf">
+              <p [innerHTML]="displayMessage.cpf"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Birth Date</label>
+          <div>
+            <input
+              class="form-control"
+              id="birthDate"
+              type="text"
+              placeholder="Birth Date (required)"
+              formControlName="birthDate"
+              [ngClass]="{ 'is-invalid': displayMessage.birthDate }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.birthDate">
+              <p [innerHTML]="displayMessage.birthDate"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="submit"
+            [disabled]="!patientForm.valid"
+            value="Update"
+            class="btn btn-primary"
+          />&nbsp;
+          <a class="btn btn-info" href="/patients/list-all">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

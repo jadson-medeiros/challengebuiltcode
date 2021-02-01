@@ -1,0 +1,89 @@
+<div class="container main-container">
+  <h1>New Doctor</h1>
+
+  <hr />
+  <div class="row">
+    <div class="col-md-10">
+      <form
+        novalidate="novalidate"
+        (ngSubmit)="insertDoctor()"
+        [formGroup]="doctorForm"
+      >
+        <div class="alert alert-danger" *ngIf="errors.length > 0">
+          <h3 id="msgRetorno">Oops! Something didn't work:</h3>
+          <ul>
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Name</label>
+          <div>
+            <input
+              class="form-control"
+              id="name"
+              type="text"
+              placeholder="Name (required)"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': displayMessage.name }"
+            />
+            <span class="text-danger" *ngIf="displayMessage.name">
+              <p [innerHTML]="displayMessage.name"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">CRM</label>
+          <div>
+            <input
+              class="form-control"
+              id="crm"
+              type="text"
+              placeholder="CRM (required)"
+              formControlName="documento"
+              [ngClass]="{ 'is-invalid': displayMessage.crm }"
+            />
+
+            <span class="text-danger" *ngIf="displayMessage.crm">
+              <p [innerHTML]="displayMessage.crm"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">CrmUf</label>
+          <div>
+            <input
+              class="form-control"
+              id="crmUf"
+              type="text"
+              placeholder="CRMUF (required)"
+              formControlName="documento"
+              [ngClass]="{ 'is-invalid': displayMessage.crmUf }"
+            />
+
+            <span class="text-danger" *ngIf="displayMessage.crmUf">
+              <p [innerHTML]="displayMessage.crmUf"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="submit" value="Insert" class="btn btn-primary" />&nbsp;
+          <a class="btn btn-info" [routerLink]="['/doctors/list-all']">Back</a>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-4 col-md-offset-2">
+            <p>Form valid: {{ doctorForm.valid }}</p>
+            <p>Form touched: {{ doctorForm.touched }}</p>
+            <p>Form dirty: {{ doctorForm.dirty }}</p>
+            <br />
+            <p>Form: {{ formResult }}</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
